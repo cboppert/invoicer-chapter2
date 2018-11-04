@@ -44,13 +44,13 @@ func main() {
    var db *gorm.DB
    if os.Getenv("INVOICER_USE_POSTGRES") != "" {
       log.Println("Opening postgres connection")
-      db, err = gorm.Open("postgres", fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=%s",
-      os.Getenv("INVOICER_POSTGRES_USER"),
-      os.Getenv("INVOICER_POSTGRES_PASSWORD"),
-      os.Getenv("INVOICER_POSTGRES_HOST"),
-
-      os.Getenv("INVOICER_POSTGRES_DB"),
-      os.Getenv("INVOICER_POSTGRES_SSLMODE"),
+      db, err = gorm.Open("postgres", fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+         os.Getenv("INVOICER_POSTGRES_HOST"),
+         os.Getenv("INVOICER_POSTGRES_PORT"),
+         os.Getenv("INVOICER_POSTGRES_USER"),
+         os.Getenv("INVOICER_POSTGRES_PASSWORD"),
+         os.Getenv("INVOICER_POSTGRES_DB"),
+         os.Getenv("INVOICER_POSTGRES_SSLMODE"),
    ))
 } else {
    log.Println("Opening sqlite connection")
